@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMA CGM - Global Shipping & Logistics</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #003366;
+            cursor: pointer;
+        }
+        .nav {
+            display: flex;
+        }
+        .nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #003366;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #007bff;
+        }
+        .hero {
+            text-align: center;
+            padding: 200px 40px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
+        .hero .button {
+            padding: 15px 40px;
+            background: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+        .hero .button:hover {
+            background: #0056b3;
+        }
+        .section {
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 40px auto;
+            max-width: 1400px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 50px;
+            font-size: 36px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .service {
+            text-align: center;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        .service h3 {
+            color: #007bff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background: #fff;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+            width: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .service:hover .tooltip {
+            display: block;
+        }
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        .contact-form button:hover {
+            background: #0056b3;
+        }
+        .contact-details {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .contact-details p {
+            margin: 10px 0;
+        }
+        .footer {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            text-align: center;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #007bff;
+        }
+        .tracking-result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        /* AI Chat Hub Styles */
+        #ai-hub {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #007bff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 9999;
+            animation: bounce 2s infinite;
+            transition: transform 0.3s;
+        }
+        #ai-hub:hover {
+            transform: scale(1.1);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        #chat-widget {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            flex-direction: column;
+            z-index: 9998;
+            overflow: hidden;
+        }
+        #chat-header {
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            cursor: move;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        #chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+        #chat-input {
+            display: flex;
+            padding: 10px;
+        }
+        #chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+        #chat-input button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background: #e9f7ff;
+            text-align: right;
+        }
+        .ai-message {
+            background: #f0f0f0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo" onclick="goToHome()">CMA CGM</div>
+        <nav class="nav">
+            <a href="#home">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Welcome to CMA CGM</h1>
+        <p>Global Leader in Shipping and Logistics Solutions</p>
+        <a href="#tracking" class="button">Track Your Package</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <p>CMA CGM is a world-leading shipping group committed to sustainable and innovative logistics solutions. With a fleet of vessels and air cargo services, we connect the world through sea, land, and air transport.</p>
+        <p>Our dedication to efficiency, reliability, and customer service ensures your cargo arrives safely and on time.</p>
+    </section>
+
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service" onclick="alert('Learn more about Personal Shipping')">
+                <div class="service-icon">📦</div>
+                <h3>Personal Shipping</h3>
+                <p>Send packages to family and friends with ease.</p>
+                <div class="tooltip">Personal Shipping: Services for individuals sending small parcels, represented by a package icon.</div>
+            </div>
+            <div class="service" onclick="alert('Learn more about Business Logistics')">
+                <div class="service-icon">🏭</div>
+                <h3>Business Logistics</h3>
+                <p>Comprehensive solutions for enterprise supply chains.</p>
+                <div class="tooltip">Business Logistics: Tailored shipping for companies, symbolized by a factory icon.</div>
+            </div>
+            <div class="service" onclick="alert('Learn more about Air Cargo')">
+                <div class="service-icon">✈️</div>
+                <h3>Air Cargo</h3>
+                <p>Fast and reliable air freight services worldwide.</p>
+                <div class="tooltip">Air Cargo: Quick delivery via planes, indicated by an airplane icon.</div>
+            </div>
+            <div class="service" onclick="alert('Learn more about Sea Freight')">
+                <div class="service-icon">🚢</div>
+                <h3>Sea Freight</h3>
+                <p>Efficient ocean shipping for large volumes.</p>
+                <div class="tooltip">Sea Freight: Cost-effective shipping by sea, represented by a ship icon.</div>
+            </div>
+            <div class="service" onclick="alert('Learn more about Tracking Services')">
+                <div class="service-icon">📍</div>
+                <h3>Tracking Services</h3>
+                <p>Real-time monitoring of your shipments.</p>
+                <div class="tooltip">Tracking Services: Track packages in real-time, symbolized by a location icon.</div>
+            </div>
+            <div class="service" onclick="alert('Learn more about Customs Clearance')">
+                <div class="service-icon">🛂</div>
+                <h3>Customs Clearance</h3>
+                <p>Assistance with international customs procedures.</p>
+                <div class="tooltip">Customs Clearance: Help with border regulations, indicated by a passport icon.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tracking" class="section">
+        <h2>Tracking Portal</h2>
+        <p>Enter your tracking number to see the status of your shipment.</p>
+        <form class="contact-form" onsubmit="trackPackage(event)">
+            <input type="text" id="tracking-number" placeholder="Tracking Number" required>
+            <button type="submit">Track</button>
+        </form>
+        <div id="tracking-result" class="tracking-result"></div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>Our team is ready to assist you. Fill out the form or use the details below.</p>
+        <form class="contact-form" onsubmit="sendContact(event)">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="text" placeholder="Subject" required>
+            <textarea placeholder="Your Message" rows="6" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-details">
+            <p><strong>Address:</strong> 4 Quai d'Arenc, 13002 Marseille, France</p>
+            <p><strong>Phone:</strong> +33 4 88 91 90 00</p>
+            <p><strong>Email:</strong> contact@cmacgm.com</p>
+            <p><strong>Hours:</strong> 24/7 Support</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 CMA CGM. All rights reserved.</p>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Cookies Policy</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Careers</a>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <p>We use cookies to enhance your experience. By continuing, you agree to our cookie policy.</p>
+        <button onclick="acceptCookies()">Accept</button>
+        <button onclick="declineCookies()">Decline</button>
+    </div>
+
+    <!-- AI Chat Hub -->
+    <div id="ai-hub" onclick="toggleChat()">AI</div>
+    <div id="chat-widget">
+        <div id="chat-header">AI Assistant - Drag Me!</div>
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <input type="text" id="chat-message" placeholder="Type your message...">
+            <button onclick="sendChatMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Go to Home
+        function goToHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Contact Form
+        function sendContact(event) {
+            event.preventDefault();
+            alert('Your message has been sent! Thank you for contacting us.');
+        }
+
+        // Tracking Simulation
+        function trackPackage(event) {
+            event.preventDefault();
+            const trackingNum = document.getElementById('tracking-number').value;
+            const resultDiv = document.getElementById('tracking-result');
+            if (trackingNum) {
+                const currentTime = new Date();
+                const eta = new Date(currentTime);
+                eta.setDate(currentTime.getDate() + 5); // Simulating 5 days ETA
+                resultDiv.innerHTML = `<p>Tracking ${trackingNum}: In Transit - ETA: ${eta.toLocaleDateString()}</p>`;
+            } else {
+                resultDiv.innerHTML = '<p>Please enter a tracking number.</p>';
+            }
+        }
+
+        // Cookie Banner
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!localStorage.getItem('cookiesDecision')) {
+                banner.style.display = 'flex';
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesDecision', 'accepted');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookiesDecision', 'declined');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+
+        window.onload = showCookieBanner;
+
+        // Chat Functionality
+        let chatOpen = false;
+        const chatWidget = document.getElementById('chat-widget');
+        const aiHub = document.getElementById('ai-hub');
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            chatWidget.style.display = chatOpen ? 'flex' : 'none';
+            aiHub.style.display = chatOpen ? 'none' : 'flex';
+        }
+
+        // Close chat when clicking outside
+        document.addEventListener('click', function(event) {
+            if (chatOpen && !chatWidget.contains(event.target) && event.target !== aiHub) {
+                chatOpen = false;
+                chatWidget.style.display = 'none';
+                aiHub.style.display = 'flex';
+            }
+        });
+
+        function addMessage(text, type) {
+            const messages = document.getElementById('chat-messages');
+            const msg = document.createElement('div');
+            msg.classList.add('message', type);
+            msg.textContent = text;
+            messages.appendChild(msg);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-message');
+            const message = input.value.trim();
+            if (!message) return;
+            addMessage(message, 'user-message');
+            input.value = '';
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                const data = await response.json();
+                addMessage(data.reply, 'ai-message');
+            } catch (error) {
+                addMessage('Error: Could not connect to AI.', 'ai-message');
+            }
+        }
+
+        // Make chat widget draggable
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        chatWidget.onmousedown = (e) => {
+            if (chatOpen) {
+                isDragging = true;
+                offsetX = e.clientX - chatWidget.getBoundingClientRect().left;
+                offsetY = e.clientY - chatWidget.getBoundingClientRect().top;
+            }
+        };
+
+        document.onmousemove = (e) => {
+            if (isDragging) {
+                chatWidget.style.left = `${e.clientX - offsetX}px`;
+                chatWidget.style.top = `${e.clientY - offsetY}px`;
+                chatWidget.style.right = 'auto';
+                chatWidget.style.bottom = 'auto';
+            }
+        };
+
+        document.onmouseup = () => {
+            isDragging = false;
+        };
+    </script>
+</body>
+</html>
